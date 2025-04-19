@@ -1,6 +1,6 @@
 package hkmu.wadd.dao;
 
-import hkmu.wadd.model.TicketUser;
+import hkmu.wadd.model.LectureUser;
 import jakarta.annotation.Resource;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -11,25 +11,30 @@ import java.util.List;
 @Service
 public class UserManagementService {
     @Resource
-    private TicketUserRepository tuRepo;
+    private LectureUserRepository tuRepo;
 
     @Transactional
-    public List<TicketUser> getTicketUsers() {
+    public List<LectureUser> getLectureUsers() {
         return tuRepo.findAll();
     }
 
     @Transactional
     public void delete(String username) {
-        TicketUser ticketUser = tuRepo.findById(username).orElse(null);
-        if (ticketUser == null) {
+        LectureUser lectureUser = tuRepo.findById(username).orElse(null);
+        if (lectureUser == null) {
             throw new UsernameNotFoundException("User '" + username + "' not found.");
         }
-        tuRepo.delete(ticketUser);
+        tuRepo.delete(lectureUser);
     }
 
     @Transactional
-    public void createTicketUser(String username, String password, String[] roles) {
-        TicketUser user = new TicketUser(username, password, roles);
+    public void createLectureUser(String username,
+                                  String password,
+                                  String fullName,
+                                  String email,
+                                  String phone ,
+                                  String[] roles) {
+        LectureUser user = new LectureUser(username, password,fullName,email,phone, roles);
         tuRepo.save(user);
     }
 }

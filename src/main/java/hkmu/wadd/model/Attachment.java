@@ -23,12 +23,12 @@ public class Attachment {
     @Lob
     private byte[] contents;
 
-    @Column(name = "ticket_id", insertable=false, updatable=false)
-    private long ticketId;
+    @Column(name = "lecture_id", insertable=false, updatable=false)
+    private long lectureId;
 
     @ManyToOne
-    @JoinColumn(name = "ticket_id")
-    private Ticket ticket;
+    @JoinColumn(name = "lecture_id")
+    private Lecture lecture;
 
     public UUID getId() {
         return id;
@@ -62,19 +62,19 @@ public class Attachment {
         this.contents = contents;
     }
 
-    public long getTicketId() {
-        return ticketId;
+    public long getLectureId() {
+        return lectureId;
     }
 
-    public void setTicketId(long ticketId) {
-        this.ticketId = ticketId;
+    public void setLectureId(long lectureId) {
+        this.lectureId = lectureId;
     }
 
-    public Ticket getTicket() {
-        return ticket;
+    public Lecture getLecture() {
+        return lecture;
     }
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    public void setLecture(Lecture lecture) {
+        this.lecture = lecture;
     }
 }

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Customer Support</title>
+    <title>Group project</title>
 </head>
 <body>
-<c:url var="logoutUrl" value="/logout"/>
-<form action="${logoutUrl}" method="post">
-    <input type="submit" value="Log out" />
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-</form>
+<%--<c:url var="logoutUrl" value="/logout"/>--%>
+<%--<form action="${logoutUrl}" method="post">--%>
+<%--    <input type="submit" value="Go back" />--%>
+<%--    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+<%--</form>--%>
 
 <h2>Error page</h2>
 <c:choose>
@@ -23,6 +23,6 @@
         <p>${message}</p>
     </c:otherwise>
 </c:choose>
-<a href="<c:url value="/ticket" />">Return to list tickets</a>
+<a href="<c:url value="/lecture/list" />">Return to lecture list</a>
 </body>
 </html>

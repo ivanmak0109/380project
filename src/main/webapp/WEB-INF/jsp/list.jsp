@@ -1,36 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Customer Support</title>
+  <title>Group project</title>
 </head>
 <body>
-<c:url var="logoutUrl" value="/logout"/>
-<form action="${logoutUrl}" method="post">
-  <input type="submit" value="Log out" />
-  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-</form>
 
-<h2>Tickets</h2>
+<security:authorize access="isAuthenticated()">
+  <c:url var="logoutUrl" value="/logout"/>
+  <form action="${logoutUrl}" method="post">
+    <input type="submit" value="Log out" />
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+  </form>
+</security:authorize>
+
+<security:authorize access="!isAuthenticated()">
+  <a href="<c:url value="/login" />">Login</a>
+  <a href="<c:url value="/user/create" />">Register</a>
+</security:authorize>
+
+<h2>Course name: COMP S380F</h2>
+
 <security:authorize access="hasRole('ADMIN')">
   <a href="<c:url value="/user" />">Manage User Accounts</a><br /><br />
 </security:authorize>
-<a href="<c:url value="/ticket/create" />">Create a Ticket</a><br/><br/>
+<security:authorize access="hasRole('ADMIN')">
+<a href="<c:url value="/lecture/create" />">Create lecture</a><br/><br/>
+</security:authorize>
+Lecture list:<br/>
 <c:choose>
-  <c:when test="${fn:length(ticketDatabase) == 0}">
-    <i>There are no tickets in the system.</i>
+  <c:when test="${fn:length(lectureDatabase) == 0}">
+    <i>There are no lectures in the system.</i>
   </c:when>
   <c:otherwise>
-    <c:forEach items="${ticketDatabase}" var="entry">
-      Ticket ${entry.id}:
-      <a href="<c:url value="/ticket/view/${entry.id}" />">
-        <c:out value="${entry.subject}"/></a>
-      (customer: <c:out value="${entry.customerName}"/>)
+    <c:forEach items="${lectureDatabase}" var="entry">
+      Lecture ${entry.id}&nbsp;
+      <a href="<c:url value="/lecture/view/${entry.id}" />">course material page</a>
+      <security:authorize access="isAuthenticated()">
       <security:authorize access="hasRole('ADMIN') or
-                          principal.username=='${entry.customerName}'">
-        [<a href="<c:url value="/ticket/edit/${entry.id}" />">Edit</a>]
+                          principal.username=='${entry.userName}'">
+        [<a href="<c:url value="/lecture/edit/${entry.id}" />">Edit</a>]
+      </security:authorize>
       </security:authorize>
       <security:authorize access="hasRole('ADMIN')">
-        [<a href="<c:url value="/ticket/delete/${entry.id}" />">Delete</a>]
+        [<a href="<c:url value="/lecture/delete/${entry.id}" />">Delete</a>]
       </security:authorize>
       <br />
     </c:forEach>

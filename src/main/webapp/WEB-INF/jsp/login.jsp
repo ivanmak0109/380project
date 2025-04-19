@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Customer Support Login</title>
+  <title>Group project</title>
 </head>
 <body>
 <c:if test="${param.error != null}">
@@ -10,10 +10,10 @@
 <c:if test="${param.logout != null}">
 <p>You have logged out.</p>
 </c:if>
-<h2>Customer Support Login</h2>
+<h2>Login</h2>
 <form action="login" method="POST">
   <label for="username">Username:</label><br/>
-  <input type="text" id="username" name="username"/><br/><br/>
+  <input type="text" id="username" name="username" autocomplete="off" autofill="false"/><br/><br/>
   <label for="password">Password:</label><br/>
   <input type="password" id="password" name="password"/><br/><br/>
   <input type="checkbox" id="remember-me" name="remember-me"/>

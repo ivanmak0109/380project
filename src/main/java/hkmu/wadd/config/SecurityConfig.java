@@ -16,14 +16,17 @@ public class SecurityConfig {
             throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/lecture/list").permitAll()
+                .requestMatchers("/user/create").permitAll()
                 .requestMatchers("/user/**").hasRole("ADMIN")
-                .requestMatchers("/ticket/delete/**").hasRole("ADMIN")
-                .requestMatchers("/ticket/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/lecture/delete/**").hasRole("ADMIN")
+                .requestMatchers("/lecture/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().permitAll()
             )
             .formLogin(form -> form
                 .loginPage("/login")
                 .failureUrl("/login?error")
+                .defaultSuccessUrl("/lecture/list", true)
                 .permitAll()
             )
             .logout(logout -> logout
