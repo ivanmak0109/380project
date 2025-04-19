@@ -1,6 +1,9 @@
 package hkmu.wadd.controller;
 
+import hkmu.wadd.dao.LectureUserRepository;
 import hkmu.wadd.dao.UserManagementService;
+import hkmu.wadd.model.LectureUser;
+import hkmu.wadd.validator.UpdateValidator;
 import hkmu.wadd.validator.UserValidator;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -14,14 +17,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/user")
 public class UserManagementController {
     @Autowired
     private UserValidator userValidator;
+    @Autowired
+    private UpdateValidator updateValidator;
     @Resource
     UserManagementService umService;
+    @Resource
+    private LectureUserRepository tuRepo;
 
     @GetMapping({"", "/", "/list"})
     public String list(ModelMap model) {

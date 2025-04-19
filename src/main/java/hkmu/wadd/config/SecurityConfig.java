@@ -18,6 +18,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/lecture/list").permitAll()
                 .requestMatchers("/user/create").permitAll()
+                .requestMatchers("/user/update").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/user/**").hasRole("ADMIN")
                 .requestMatchers("/lecture/delete/**").hasRole("ADMIN")
                 .requestMatchers("/lecture/**").hasAnyRole("USER", "ADMIN")

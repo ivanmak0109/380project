@@ -37,4 +37,24 @@ public class UserManagementService {
         LectureUser user = new LectureUser(username, password,fullName,email,phone, roles);
         tuRepo.save(user);
     }
+
+    @Transactional
+    public void updateLectureUser(String username,
+                                  String password,
+                                  String fullName,
+                                  String email,
+                                  String phone) {
+        if (username == null) {
+            throw new UsernameNotFoundException("User '" + username + "' not found.");
+        }
+        LectureUser lectureUser = tuRepo.findById(username).orElse(null);
+        if (lectureUser == null) {
+            throw new UsernameNotFoundException("User '" + username + "' not found.");
+        }
+        lectureUser.setPassword(password);
+        lectureUser.setFullName(fullName);
+        lectureUser.setEmail(email);
+        lectureUser.setPhone(phone);
+        tuRepo.saveAndFlush(lectureUser);
+    }
 }

@@ -11,6 +11,7 @@
     <input type="submit" value="Log out" />
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
   </form>
+  <a href="<c:url value="/user/update"/>">Update Personal Information</a>
 </security:authorize>
 
 <security:authorize access="!isAuthenticated()">

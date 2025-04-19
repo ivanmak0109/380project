@@ -13,7 +13,7 @@ public class LectureUser {
 
     private String password;
 
-    @Column(name = "full_name")
+    @Column(name = "full_Name")
     private String fullName;
     @Column(name = "email")
     private String email;
